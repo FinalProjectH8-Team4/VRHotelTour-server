@@ -1,0 +1,16 @@
+{
+  "name": "VRHotelTour-server",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/FinalProjectH8-Team4/VRHotelTour-server.git",
+  "author": "Mochaa <mochamadzulfikar@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "apollo-server": "^2.19.0",
+    "express": "^4.17.1",
+    "graphql": "^15.4.0",
+    "ioredis": "^4.19.2",
+    "mongodb": "^3.6.3",
+    "nodemailer": "^6.4.16"
+  }
+}
