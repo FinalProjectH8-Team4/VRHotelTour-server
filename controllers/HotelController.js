@@ -7,7 +7,7 @@ class Hotels {
             const hotels = await Hotel.findAll()
             res.status(200).json(hotels)
         } catch (err) {
-            console.log(err)
+            res.status(500).json(err)
         }
     }
 
@@ -17,7 +17,7 @@ class Hotels {
             const hotel = await Hotel.findOne(id)
             res.status(200).json(hotel)
         } catch (err) {
-            console.log(err)
+            res.status(500).json(err)
         }
     }
 
@@ -31,7 +31,7 @@ class Hotels {
             const newHotel = await Hotel.insertOne(payload)
             res.status(201).json(newHotel.ops[0])
         } catch (err) {
-            console.log(err)
+            res.status(500).json(err)
         }
     }
 
@@ -46,7 +46,7 @@ class Hotels {
             const newHotel = await Hotel.updateOne(id, payload)
             res.status(200).json(newHotel.value)
         } catch (err) {
-            console.log(err)
+            res.status(500).json(err)
         }
     }
 
@@ -56,7 +56,7 @@ class Hotels {
             const deleteHotel = await Hotel.deleteOne(id)
             res.status(200).json(deleteHotel.value)
         } catch (err) {
-            console.log(err)
+            res.status(500).json(err)
         }
     }
 
