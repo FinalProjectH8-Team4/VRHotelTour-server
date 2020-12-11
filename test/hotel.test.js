@@ -20,6 +20,11 @@ afterAll(async () => {
 describe('Test GET Hotel /', () => {
     it('Test get all hotels', async (done) => {
         const hotel = await Hotel.findAll()
-        console.log(hotel)
+        expect(hotel).toEqual(expect.arrayContaining([
+            expect.objectContaining({_id: expect.any(String)}),
+            expect.objectContaining({name: expect.any(String)}),
+            expect.objectContaining({room_type: expect.any(Array)}),
+            expect.objectContaining({facilities: expect.any(Array)})
+        ]))
     })
 })
