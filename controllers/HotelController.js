@@ -30,17 +30,23 @@ class Hotels {
         }
     }
 
-    static async AddHotel (req, res) {
+    static async AddHotel (req, res, next) {
         try {
             const payload = {
                 name: req.body.name,
                 room_type: req.body.room_type,
                 facilities: req.body.facilities
             }
+            if(!payload) {
+                let err = {
+                    name: 'Bad Request'
+                }
+                throw next(err)
+            }
             const newHotel = await Hotel.insertOne(payload)
             res.status(201).json(newHotel.ops[0])
         } catch (err) {
-            res.status(500).json(err)
+            next(err)
         }
     }
 
