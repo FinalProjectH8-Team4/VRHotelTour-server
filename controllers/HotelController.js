@@ -1,3 +1,4 @@
+const e = require('express')
 const Hotel = require('../models/index')
 
 class Hotels {
@@ -37,20 +38,23 @@ class Hotels {
                 room_type: req.body.room_type,
                 facilities: req.body.facilities
             }
-            if(!payload) {
+            if(payload) {
+                const newHotel = await Hotel.insertOne(payload)
+                res.status(201).json(newHotel.ops[0])
+            }
+            else if(!payload) {
                 let err = {
                     name: 'Bad Request'
                 }
                 throw next(err)
             }
-            const newHotel = await Hotel.insertOne(payload)
-            res.status(201).json(newHotel.ops[0])
+            throw next()
         } catch (err) {
             next(err)
         }
     }
 
-    static async EditHotel (req, res) {
+    static async EditHotel (req, res, next) {
         try {
             const id = req.params.id
             const payload = {
@@ -58,20 +62,42 @@ class Hotels {
                 room_type: req.body.room_type,
                 facilities: req.body.facilities
             }
-            const newHotel = await Hotel.updateOne(id, payload)
-            res.status(200).json(newHotel.value)
+            if(id) {
+                const newHotel = await Hotel.updateOne(id, payload)
+                if(newHotel.value === null) {
+                    let err = {
+                        name: 'Not Found'
+                    }
+                    throw next(err)
+                }
+                else if (newHotel.value !== null) {
+                    res.status(200).json(newHotel.value)
+                }
+            }
+            throw next(err)
         } catch (err) {
-            res.status(500).json(err)
+            next(err)
         }
     }
 
-    static async DeleteHotel (req, res) {
+    static async DeleteHotel (req, res, next) {
         try {
             const id = req.params.id
-            const deleteHotel = await Hotel.deleteOne(id)
-            res.status(200).json(deleteHotel.value)
+            if(id) {
+                const deleteHotel = await Hotel.deleteOne(id)
+                if(deleteHotel.value === null) {
+                    let err = {
+                        name: 'Not Found'
+                    }
+                    throw next(err)
+                }
+                else if (deleteHotel.value !== null) {
+                    res.status(200).json(deleteHotel.value)
+                }
+            }
+            throw next(err)
         } catch (err) {
-            res.status(500).json(err)
+            next(err)
         }
     }
 
