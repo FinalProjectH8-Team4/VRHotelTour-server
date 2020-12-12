@@ -54,3 +54,18 @@ describe('Test GET Hotel By ID /:id', () => {
         done()
     })
 })
+
+describe('TEST POST Hotel /', () => {
+    it('Test post hotel sucess', async (done) => {
+        const payload = testPayload
+        const res = await request.post('/', payload)
+        expect(res.status).toBe(201)
+        expect(res.body).toEqual(expect.objectContaining({
+            _id: expect.any(String),
+            name: expect.any(String),
+            room_type: expect.any(Array),
+            facilities: expect.any(Array)
+        }))
+        done()
+    })
+})

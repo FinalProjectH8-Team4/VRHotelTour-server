@@ -38,6 +38,7 @@ class Hotels {
                 facilities: req.body.facilities
             }
             const newHotel = await Hotel.insertOne(payload)
+            console.log(newHotel)
             res.status(201).json(newHotel.ops[0])
         } catch (err) {
             res.status(500).json(err)
