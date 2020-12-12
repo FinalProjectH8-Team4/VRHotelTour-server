@@ -2,22 +2,31 @@ const Hotel = require('../models/index')
 
 class Hotels {
 
-    static async Hotels (req, res) {
+    static async Hotels (req, res, next) {
         try {
             const hotels = await Hotel.findAll()
             res.status(200).json(hotels)
         } catch (err) {
-            res.status(500).json(err)
+            next(err)
         }
     }
 
-    static async HotelDetail (req, res) {
+    static async HotelDetail (req, res, next) {
         try {
             const id = req.params.id
-            const hotel = await Hotel.findOne(id)
-            res.status(200).json(hotel)
+            if(id) {
+                const hotel = await Hotel.findOne(id)
+                if(!hotel) {
+                    let err = {
+                        name: 'Not Found'
+                    }
+                    throw next(err)
+                }
+                res.status(200).json(hotel)
+            }
+            throw next()
         } catch (err) {
-            res.status(500).json(err)
+            next(err)
         }
     }
 

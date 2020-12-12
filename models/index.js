@@ -6,7 +6,6 @@ const hotels = db.collection(collectionName)
 class Hotel {
     static findAll() {
         const allHotels = hotels.find().toArray()
-        console.log(allHotels)
         return allHotels
     }
 
