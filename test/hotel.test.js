@@ -1,7 +1,7 @@
 const supertest = require('supertest')
 const app = require('../app')
 const request = supertest(app)
-const testPayload = require('./payload.test.json')
+const testPayload = require('./payloadTest')
 
 
 describe('Test GET Hotel /', () => {
@@ -56,9 +56,9 @@ describe('Test GET Hotel By ID /:id', () => {
 })
 
 describe('TEST POST Hotel /', () => {
-    it('Test post hotel sucess', async (done) => {
+    it('Test post hotel success', async (done) => {
         const payload = testPayload
-        const res = await request.post('/', payload)
+        const res = await request.post('/').send(payload)
         expect(res.status).toBe(201)
         expect(res.body).toEqual(expect.objectContaining({
             _id: expect.any(String),
