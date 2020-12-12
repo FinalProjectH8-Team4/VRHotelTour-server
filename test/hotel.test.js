@@ -68,15 +68,6 @@ describe('TEST POST Hotel /', () => {
         }))
         done()
     })
-
-    // it('Test post hotel failed, no payload', async (done) => {
-    //     const res = await request.post('/').send()
-    //     expect(res.status).toBe(500)
-    //     expect(res.body).toEqual(expect.objectContaining({
-    //         msg: expect.any(String)
-    //     }))
-    //     done()
-    // })
 })
 
 describe('TEST PUT Hotel /:id', () => {
