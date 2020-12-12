@@ -2,22 +2,31 @@ const Hotel = require('../models/index')
 
 class Hotels {
 
-    static async Hotels (req, res) {
+    static async Hotels (req, res, next) {
         try {
             const hotels = await Hotel.findAll()
             res.status(200).json(hotels)
         } catch (err) {
-            console.log(err)
+            next(err)
         }
     }
 
-    static async HotelDetail (req, res) {
+    static async HotelDetail (req, res, next) {
         try {
             const id = req.params.id
-            const hotel = await Hotel.findOne(id)
-            res.status(200).json(hotel)
+            if(id) {
+                const hotel = await Hotel.findOne(id)
+                if(!hotel) {
+                    let err = {
+                        name: 'Not Found'
+                    }
+                    throw next(err)
+                }
+                res.status(200).json(hotel)
+            }
+            throw next()
         } catch (err) {
-            console.log(err)
+            next(err)
         }
     }
 
@@ -31,7 +40,7 @@ class Hotels {
             const newHotel = await Hotel.insertOne(payload)
             res.status(201).json(newHotel.ops[0])
         } catch (err) {
-            console.log(err)
+            res.status(500).json(err)
         }
     }
 
@@ -46,7 +55,7 @@ class Hotels {
             const newHotel = await Hotel.updateOne(id, payload)
             res.status(200).json(newHotel.value)
         } catch (err) {
-            console.log(err)
+            res.status(500).json(err)
         }
     }
 
@@ -56,7 +65,7 @@ class Hotels {
             const deleteHotel = await Hotel.deleteOne(id)
             res.status(200).json(deleteHotel.value)
         } catch (err) {
-            console.log(err)
+            res.status(500).json(err)
         }
     }
 

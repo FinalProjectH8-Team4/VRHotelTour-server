@@ -1,0 +1,93 @@
+{
+    "name": "Four Season Hotel Jakarta",
+    "room_type": [
+        {          
+        "type" : "Executive Room",
+        "price": 3200000,
+        "facilities": {
+            "tv": {
+                "size" : "42Inch",
+                "channels" : [
+                    "HBO", "Animax" , "History", "NatGeo", "Netflix", "Disney+", "Youtube"
+                ],
+                "type" : "SmartTV"
+            },
+            "fridge" : [
+                "Mineral Water", "Coke", "Sprite"
+                ],
+            "bed" : "King",
+            "intercom" : {
+                "001" : "Receptionist",
+                "002" : "Laundry",
+                "003" : "Restaourant",
+                "004" : "Room Service"              
+            },
+            "essentials" : [
+                {
+                    "name" : "Toiletries",
+                    "icon" : "http://something.com/iconamenities.svg"
+                },
+                {
+                    "name" : "Slippers and Bathrobe",
+                    "icon" : "http://something.com/slippers.svg"
+                },
+                {
+                    "name" : "Bathub",
+                    "icon" : "http://something.com/safebox.svg"
+                },
+                {
+                    "name" : "Towels and linens",
+                    "icon" : "http://something.com/safebox.svg"
+                },
+                {
+                    "name" : "Tea and coffe maker",
+                    "icon" : "http://something.com/safebox.svg"
+                },
+                {
+                    "name" : "Electric kettle",
+                    "icon" : "http://something.com/safebox.svg"
+                },
+                {
+                    "name" : "Walk-in closet",
+                    "icon" : "http://something.com/safebox.svg"
+                },
+                {
+                    "name" : "Safebox",
+                    "icon" : "http://something.com/safebox.svg"
+                },
+                {
+                    "name" : "Airconditioner",
+                    "icon" : "http://something.com/safebox.svg"
+                }
+            ]
+        },
+        "room_image": "https://cf.bstatic.com/images/hotel/max1024x768/174/174204434.jpg"
+        }
+    ],
+    "facilities": [
+        {
+            "name" : "Gym",
+            "description" : "something",
+            "images" : [
+                "http://something.com/gym1.jpg",
+                "http://something.com/gym1.jpg"
+            ]
+        },
+        {
+            "name" : "Spa",
+            "description" : "something",
+            "images" : [
+                "http://something.com/gym1.jpg",
+                "http://something.com/gym2.jpg"
+            ]
+        },
+        {
+            "name" : "Palm Restaurant",
+            "description" : "Indonesian, Asian, and Internationa buffet or A La carte",
+            "images" : [
+                "http://something.com/gym1.jpg",
+                "http://something.com/gym2.jpg"
+            ]
+        }
+    ]
+}
