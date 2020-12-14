@@ -1,9 +1,9 @@
-const e = require('express')
+const transporter = require('../config/nodemailer')
 const Hotel = require('../models/index')
 
 class Hotels {
 
-    static async Hotels (req, res, next) {
+    static async Hotels(req, res, next) {
         try {
             const hotels = await Hotel.findAll()
             res.status(200).json(hotels)
@@ -12,12 +12,12 @@ class Hotels {
         }
     }
 
-    static async HotelDetail (req, res, next) {
+    static async HotelDetail(req, res, next) {
         try {
             const id = req.params.id
-            if(id) {
+            if (id) {
                 const hotel = await Hotel.findOne(id)
-                if(!hotel) {
+                if (!hotel) {
                     let err = {
                         name: 'Not Found'
                     }
@@ -31,18 +31,18 @@ class Hotels {
         }
     }
 
-    static async AddHotel (req, res, next) {
+    static async AddHotel(req, res, next) {
         try {
             const payload = {
                 name: req.body.name,
                 room_type: req.body.room_type,
                 facilities: req.body.facilities
             }
-            if(payload) {
+            if (payload) {
                 const newHotel = await Hotel.insertOne(payload)
                 res.status(201).json(newHotel.ops[0])
             }
-            else if(!payload) {
+            else if (!payload) {
                 let err = {
                     name: 'Bad Request'
                 }
@@ -54,7 +54,7 @@ class Hotels {
         }
     }
 
-    static async EditHotel (req, res, next) {
+    static async EditHotel(req, res, next) {
         try {
             const id = req.params.id
             const payload = {
@@ -62,9 +62,9 @@ class Hotels {
                 room_type: req.body.room_type,
                 facilities: req.body.facilities
             }
-            if(id) {
+            if (id) {
                 const newHotel = await Hotel.updateOne(id, payload)
-                if(newHotel.value === null) {
+                if (newHotel.value === null) {
                     let err = {
                         name: 'Not Found'
                     }
@@ -80,12 +80,12 @@ class Hotels {
         }
     }
 
-    static async DeleteHotel (req, res, next) {
+    static async DeleteHotel(req, res, next) {
         try {
             const id = req.params.id
-            if(id) {
+            if (id) {
                 const deleteHotel = await Hotel.deleteOne(id)
-                if(deleteHotel.value === null) {
+                if (deleteHotel.value === null) {
                     let err = {
                         name: 'Not Found'
                     }
@@ -101,6 +101,25 @@ class Hotels {
         }
     }
 
+    static async sendMail(req, res, next) {
+        const {emailAddress} = req.body
+        const mailData = {
+          from: 'inep.inn@gmail.com',  // sender address
+            to: emailAddress,   // list of receivers
+            subject: 'Sending Email using Node.js',
+            text: 'Inep Inn Booking Guide',
+            html: '<b>Halo ! Terima kasih telah menghubungi kami, dalam waktu kurang 24 jam anda akan dihubungi oleh tim kami</b> <br>Hati hati yah :)<br/>',
+        };
+
+        transporter.sendMail(mailData, (error,info)=>{
+          if(error){
+              res.send(error)
+            return console.log(error);
+          }
+          res.send('Email Sent')
+        })
+
+    }
 }
 
 module.exports = Hotels
