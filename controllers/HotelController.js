@@ -8,6 +8,7 @@ class Hotels {
             const hotels = await Hotel.findAll()
             res.status(200).json(hotels)
         } catch (err) {
+            console.log(err);
             next(err)
         }
     }
@@ -38,17 +39,16 @@ class Hotels {
                 room_type: req.body.room_type,
                 facilities: req.body.facilities
             }
-            if (payload) {
+            if (!payload.name || !payload.room_type || !payload.facilities) {
+                const err = {
+                    name: 'Bad Request'
+                }
+                throw err
+            }
+            else{
                 const newHotel = await Hotel.insertOne(payload)
                 res.status(201).json(newHotel.ops[0])
             }
-            else if (!payload) {
-                let err = {
-                    name: 'Bad Request'
-                }
-                throw next(err)
-            }
-            throw next()
         } catch (err) {
             next(err)
         }
@@ -113,10 +113,10 @@ class Hotels {
 
         transporter.sendMail(mailData, (error,info)=>{
           if(error){
-              res.send(error)
+              res.status(500).json(error)
             return console.log(error);
           }
-          res.send('Email Sent')
+          res.status(200).json({msg : 'Email Sent'})
         })
 
     }
