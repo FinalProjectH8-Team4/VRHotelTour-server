@@ -38,15 +38,15 @@ class Hotels {
         room_type: req.body.room_type,
         facilities: req.body.facilities
       }
-      if (payload) {
-        const newHotel = await Hotel.insertOne(payload)
-        res.status(201).json(newHotel.ops[0])
-      }
-      else if (!payload) {
+      if (!payload.name || !payload.room_type || !payload.facilities) {
         let err = {
           name: 'Bad Request'
         }
         throw next(err)
+      }
+      else {
+        const newHotel = await Hotel.insertOne(payload)
+        res.status(201).json(newHotel.ops[0])
       }
       throw next()
     } catch (err) {
